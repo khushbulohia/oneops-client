@@ -44,18 +44,19 @@ function getInstanceMetrics(orgname, assembly, platform, enviornment, component,
           for(var s in seriesdata) {
             var sdata = seriesdata[s]
             var md = sdata.header.metric
-            plotdata.md = sdata.data
-            // console.log(sdata.header.metric + " " + sdata.data)
+            // plotdata.put(md,sdata.data)
+            plotdata[md] = sdata.data
           }
         }
-
-        // console.log(JSON.stringify(obj))
       }
     }
-    plot({
-      data:	plotdata,
-      filename:	'output.svg'
-    });
+    console.log(JSON.stringify(plotdata))
+    // plot({
+    //   data:	plotdata,
+    //   filename:	'output.svg',
+        // logscale:   true,
+        // title: 'metric graph'
+    // });
 
   });
 }
