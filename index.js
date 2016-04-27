@@ -1,12 +1,12 @@
 "use strict";
-let request = require("request");
-let config = require("./config.js")
+var request = require("request");
+var config = require("./config.js")
 var plot = require('plotter').plot;
 
-// let AUTH_TOKEN=''
-// let ONEOPS_ENDPOINT=''
+// var AUTH_TOKEN=''
+// var ONEOPS_ENDPOINT=''
 
-let environment = {
+var environment = {
   endpoint : process.argv[2] ? process.argv[2] : ONEOPS_ENDPOINT,
   org: '',
   authkey: process.argv[3] ? process.argv[3] : AUTH_TOKEN
@@ -14,10 +14,10 @@ let environment = {
 
 function getOrgHealth(orgname, assembly) {
   environment.org = orgname
-  let options = config.options(environment)
+  var options = config.options(environment)
   options.uri += '/operations/health.json?state=total'
   request(options, function(error, response, body) {
-    let data = JSON.parse(body);
+    var data = JSON.parse(body);
     for(var key in data) {//array of heath objects
       var nspath = data[key].ns
       var path = '/'+ orgname + '/' + assembly
@@ -30,11 +30,11 @@ function getOrgHealth(orgname, assembly) {
 
 function getInstanceMetrics(orgname, assembly, platform, enviornment, component, instance, monitor) {
   environment.org = orgname
-  let options = config.options(environment)
+  var options = config.options(environment)
   options.uri += '/assemblies/' + assembly + '/operations/environments/' + enviornment + '/platforms/' + platform + '/components/' + component + '/instances/' + instance + '/monitors/' + monitor + '.json'
 
   request(options, function(error, response, body) {
-    let data = JSON.parse(body);
+    var data = JSON.parse(body);
     var plotdata = {}
     for(var key in data) {//array os heath objects
       if(key == 'charts') {
